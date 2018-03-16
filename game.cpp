@@ -35,6 +35,13 @@ void Game::initGame(int players) {
 	//	Draw the river in the table (one card).
 	getCardFromTheDeck(0, 1);
 
+	//	Check the final hand of each player
+	for (size_t i = 0; i < players; i++) {
+
+		hand hand = getFinalHand(i);
+
+	}
+
 }
 
 //	Init the cards of the deck to -1. That's mean the cards are in the deck and not in the table neither
@@ -68,4 +75,17 @@ void Game::getCardFromTheDeck(int entity, int times) {
 		card = numberToCard(rand() % (cardsProSuit * suits));
 		m_deck[card.first][card.second] = entity;
 	}
+}
+
+Game::hand Game::getFinalHand(int player) {
+
+	hand hand;
+	for (size_t i = 0; i < suits; i++)
+	for (size_t j = 0; j < cardsProSuit; j++) {
+
+		if(m_deck[i][j] == 0 || m_deck[i][j] == player)
+			hand.insert(m_deck[i][j]);
+	}
+
+	return hand;
 }

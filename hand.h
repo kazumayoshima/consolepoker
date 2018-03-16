@@ -9,5 +9,6 @@ enum class Rank{
 	ThreeOfAKind,
 	TwoPairs,
 	OnePair,
-	NoPair
+	NoPair,
+	Invalid
 };
