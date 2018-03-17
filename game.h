@@ -1,19 +1,22 @@
 #include "utils.h"
 #include "numberToCardConverter.h"
+#include "player.h"
 #include <stdlib.h>
 #include <time.h>
 #include <set>
+#include <vector>
 
 class Game {
 
 public:
 
 	Game();
+	typedef std::vector<Player*> ActivePlayers;
 
 public:
-	typedef std::set<int> hand;
-	void initGame(int players = 1);
 	
+	void initGame();
+	void addPlayers(int players = 1);
 
 private:
 
@@ -22,7 +25,6 @@ private:
 	void getCardFromTheDeck(int entity, int times = 1);
 	hand getFinalHand(int player);
 
-	hand m_hand[cardsInHand];
 	int m_deck[cardsProSuit][suits];
-	int m_players;
+	ActivePlayers m_activePlayers;
 };

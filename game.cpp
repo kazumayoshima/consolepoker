@@ -1,17 +1,37 @@
 #include "game.h"
+#include "utils.h"
 
 Game::Game() {
 
 	srand(time(NULL));
 }
 
-void Game::initGame(int players) {
+void Game::addPlayers(int players){
+
+	for (size_t i = 0; i < players; i++) {
+
+		//	TODO: Implement a class to display output nicely
+		std::cout << "Do you want to set a name for the player? (Leave in blank for anonymous): ";
+		std::string playerName = "";
+		std::cin >> playerName;
+
+		Player* player;
+		if (playerName == "")
+			player = new Player();
+		else
+			player = new Player(playerName);
+
+		m_activePlayers.push_back(player);
+	}
+}
+
+void Game::initGame() {
 
 	//	Shuffle the deck.
 	initTheDeck();
 
 	//	Give two cards to each player (pre-flop).
-	drawHandCards(players);
+	drawHandCards(m_activePlayers.size());
 
 	//	Do your bets
 	//	for(auto i : player)
@@ -36,12 +56,11 @@ void Game::initGame(int players) {
 	getCardFromTheDeck(0, 1);
 
 	//	Check the final hand of each player
-	for (size_t i = 0; i < players; i++) {
+	for (size_t i = 0; i < m_activePlayers.size(); i++) {
 
 		hand hand = getFinalHand(i);
 
 	}
-
 }
 
 //	Init the cards of the deck to -1. That's mean the cards are in the deck and not in the table neither
@@ -77,7 +96,7 @@ void Game::getCardFromTheDeck(int entity, int times) {
 	}
 }
 
-Game::hand Game::getFinalHand(int player) {
+hand Game::getFinalHand(int player) {
 
 	hand hand;
 	for (size_t i = 0; i < suits; i++)
