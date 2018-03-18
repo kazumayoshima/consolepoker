@@ -14,11 +14,13 @@ public:
 	void winBet(const size_t externalBet);
 	void endBet();
 	void endRound();
+	hand getHand();
+	void addCardToHand(int deckCard);
 private:
 
 	size_t m_money;
 	size_t m_bet;
 	size_t m_totalBet;
 	std::string m_name;
-	hand m_hand[cardsInHand];
+	hand m_hand;
 };

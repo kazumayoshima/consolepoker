@@ -42,3 +42,6 @@ enum Suit {
 	Hearts = 3,
 	Spades = 4
 };
+
+std::string cardNumberToString(int cardNumber);
+std::string suitToString(int suit);

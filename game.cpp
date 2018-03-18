@@ -35,9 +35,9 @@ void Game::initGame() {
 	//	Give two cards to each player (pre-flop).
 	drawHandCards(m_activePlayers.size());
 
-
-
-
+	//	Show cards for player 1 (testing)
+	m_display.showCards(m_activePlayers[0]->getHand());
+	getchar();
 	//	Do your bets
 	//	for(auto i : player)
 	//		bet();
@@ -61,11 +61,9 @@ void Game::initGame() {
 	getCardFromTheDeck(0, 1);
 
 	//	Check the final hand of each player
-	for (size_t i = 0; i < m_activePlayers.size(); i++) {
+	for (size_t i = 0; i < m_activePlayers.size(); i++)
 
 		hand hand = getFinalHand(i);
-
-	}
 }
 
 //	Init the cards of the deck to -1. That's mean the cards are in the deck and not in the table neither
@@ -81,11 +79,10 @@ void Game::initTheDeck() {
 void Game::drawHandCards(size_t numberOfPlayers) {
 
 	//	Draw 2 cards to each player
-	for(size_t i = 0; i < cardsInHand; i++)
-	for (size_t j = 0; j < numberOfPlayers; j++) {
+	for (size_t i = 1; i < numberOfPlayers+1; i++) {
 
-		//	The player J draw a card
-		getCardFromTheDeck(j);
+		//	The player J gets 2 cards
+		getCardFromTheDeck(i, 2);
 	}
 }
 
@@ -93,10 +90,16 @@ void Game::drawHandCards(size_t numberOfPlayers) {
 void Game::getCardFromTheDeck(size_t entity, size_t times) {
 
 	std::pair<int, int> card;
-	for(size_t i = 0; i < times; i++)
-	for (size_t j = 0; j < cardsInHand; j++) {
+	for(size_t i = 0; i < times; i++){
 
-		card = numberToCard(rand() % (cardsProSuit * suits));
+		int deckCard = rand() % (cardsProSuit * suits) + 1;
+
+		//	Add the card to the player
+		if (entity != 0)
+			m_activePlayers[entity-1]->addCardToHand(deckCard);
+
+		//	Set the card as taken in the deck
+		card = numberToCard(deckCard);
 		m_deck[card.first][card.second] = entity;
 	}
 }

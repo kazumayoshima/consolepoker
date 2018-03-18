@@ -25,5 +25,6 @@ private:
 
 	void showCardTop(std::pair<int, int> pair);
 	void showCardSuit(std::pair<int, int> pair);
+	void showCardBlank();
 	void showCardBottom(std::pair<int, int> pair);
 };

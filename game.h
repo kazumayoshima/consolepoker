@@ -25,7 +25,7 @@ private:
 	void getCardFromTheDeck(size_t entity, size_t times = 1);
 	hand getFinalHand(int player);
 
-	int m_deck[cardsProSuit][suits];
+	int m_deck[suits][cardsProSuit];
 	ActivePlayers m_activePlayers;
 	Display m_display;
 };

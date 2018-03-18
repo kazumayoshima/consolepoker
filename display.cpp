@@ -169,12 +169,26 @@ void Display::showTable() {
 
 	//	TODO: This must be removed in the future and set a timer 
 	getchar();
-	getchar();
 }
 
 void Display::showCardTop(std::pair<int,int> pair) {
 
 	setconsolecolor(WHITE, BLACK);
+	std::cout << " ";
+	setconsolecolor(RED, WHITE);
+	std::cout << " " << cardNumberToString(pair.second) << "      ";
+	setconsolecolor(WHITE, BLACK);
+	std::cout << "  ";
+}
+
+void Display::showCardBlank() {
+
+	setconsolecolor(WHITE, BLACK);
+	std::cout << " ";
+	setconsolecolor(WHITE, WHITE);
+	std::cout << "        ";
+	setconsolecolor(WHITE, BLACK);
+	std::cout << "  ";
 }
 
 void Display::showCardSuit(std::pair<int, int> pair) {
@@ -184,7 +198,12 @@ void Display::showCardSuit(std::pair<int, int> pair) {
 
 void Display::showCardBottom(std::pair<int, int> pair) {
 
-
+	setconsolecolor(WHITE, BLACK);
+	std::cout << " ";
+	setconsolecolor(RED, WHITE);
+	std::cout << "      " << cardNumberToString(pair.second) << " ";
+	setconsolecolor(WHITE, BLACK);
+	std::cout << "  ";
 }
 
 void Display::showCards(hand hand) {
@@ -193,10 +212,24 @@ void Display::showCards(hand hand) {
 	std::string middle;
 	std::string bottom;
 
-	std::pair<int, int> pair;
-	for (auto &card : hand) {
-
-		pair = numberToCard(card);
+	std::vector<std::pair<int, int>> cardsIdx;
+	if(hand.size() == 2){
+		for(auto &card : hand)
+			cardsIdx.push_back(numberToCard(card));
+		showCardTop(cardsIdx[0]);
+		showCardTop(cardsIdx[1]);
+		std::cout << std::endl;
+		showCardBlank();
+		showCardBlank();
+		std::cout << std::endl;
+		showCardBlank();
+		showCardBlank();
+		std::cout << std::endl;
+		showCardBlank();
+		showCardBlank();
+		std::cout << std::endl;
+		showCardBottom(cardsIdx[0]);
+		showCardBottom(cardsIdx[1]);
 	}
 }
 

@@ -50,3 +50,13 @@ void Player::endRound() {
 	m_totalBet = 0;
 	m_bet = 0;
 }
+
+hand Player::getHand() {
+
+	return m_hand;
+}
+
+void Player::addCardToHand(int deckCard) {
+
+	m_hand.insert(deckCard);
+}
