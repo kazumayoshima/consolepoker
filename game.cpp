@@ -1,25 +1,24 @@
 #include "game.h"
-#include "utils.h"
 
 Game::Game() {
 
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 }
 
-void Game::addPlayers(int players){
+void Game::addPlayers(size_t players){
 
 	for (size_t i = 0; i < players; i++) {
 
 		//	TODO: Implement a class to display output nicely
-		std::cout << "Do you want to set a name for the player? (Leave in blank for anonymous): ";
+		std::cout << "Do you want to set a name for the player [Max 10 characters]? (Leave in blank for anonymous): \n";
 		std::string playerName = "";
-		std::cin >> playerName;
+		getline(std::cin, playerName);
 
 		Player* player;
 		if (playerName == "")
 			player = new Player();
 		else
-			player = new Player(playerName);
+			player = new Player(playerName.substr(0,10));
 
 		m_activePlayers.push_back(player);
 	}
@@ -27,11 +26,17 @@ void Game::addPlayers(int players){
 
 void Game::initGame() {
 
+	//	Show the table empty
+	m_display.showTable();
+
 	//	Shuffle the deck.
 	initTheDeck();
 
 	//	Give two cards to each player (pre-flop).
 	drawHandCards(m_activePlayers.size());
+
+
+
 
 	//	Do your bets
 	//	for(auto i : player)
@@ -73,7 +78,7 @@ void Game::initTheDeck() {
 }
 
 //	Get cards for the players
-void Game::drawHandCards(int numberOfPlayers) {
+void Game::drawHandCards(size_t numberOfPlayers) {
 
 	//	Draw 2 cards to each player
 	for(size_t i = 0; i < cardsInHand; i++)
@@ -85,7 +90,7 @@ void Game::drawHandCards(int numberOfPlayers) {
 }
 
 //	Get a card from the deck, it can be for a player or to be put in the table
-void Game::getCardFromTheDeck(int entity, int times) {
+void Game::getCardFromTheDeck(size_t entity, size_t times) {
 
 	std::pair<int, int> card;
 	for(size_t i = 0; i < times; i++)

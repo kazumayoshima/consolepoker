@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="display.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="numberToCardConverter.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="display.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="hand.h" />
     <ClInclude Include="numberToCardConverter.h" />
