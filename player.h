@@ -16,6 +16,7 @@ public:
 	void endRound();
 	hand getHand();
 	void addCardToHand(int deckCard);
+	void clearOutHand();
 private:
 
 	size_t m_money;

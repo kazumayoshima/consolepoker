@@ -176,7 +176,9 @@ void Display::showCardTop(std::pair<int,int> pair) {
 	setconsolecolor(WHITE, BLACK);
 	std::cout << " ";
 	setconsolecolor(RED, WHITE);
-	std::cout << " " << cardNumberToString(pair.second) << "      ";
+	std::cout << " " << cardNumberToString(pair.second) << "     ";
+	if (pair.second != 9)
+		std::cout << " ";
 	setconsolecolor(WHITE, BLACK);
 	std::cout << "  ";
 }
@@ -198,10 +200,14 @@ void Display::showCardSuit(std::pair<int, int> pair) {
 
 void Display::showCardBottom(std::pair<int, int> pair) {
 
+	if (cardNumberToString(pair.second) == "Invalid card number")
+		std::cout << pair.second;
 	setconsolecolor(WHITE, BLACK);
 	std::cout << " ";
 	setconsolecolor(RED, WHITE);
-	std::cout << "      " << cardNumberToString(pair.second) << " ";
+	std::cout << "      " << cardNumberToString(pair.second);
+	if(pair.second != 9)
+		std::cout << " ";
 	setconsolecolor(WHITE, BLACK);
 	std::cout << "  ";
 }

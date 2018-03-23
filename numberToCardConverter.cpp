@@ -14,7 +14,7 @@
 std::pair<int,int> numberToCard(int number) {
 
 	std::pair <int,int>card;
-	card.first = number / cardsProSuit;
-	card.second = number % cardsProSuit;
+	card.first = (number / cardsProSuit);
+	card.second = (number % cardsProSuit);
 	return card;
 }

@@ -15,6 +15,7 @@ void Game::addPlayers(size_t players){
 		getline(std::cin, playerName);
 
 		Player* player;
+		player = new Player();
 		if (playerName == "")
 			player = new Player();
 		else
@@ -32,12 +33,16 @@ void Game::initGame() {
 	//	Shuffle the deck.
 	initTheDeck();
 
-	//	Give two cards to each player (pre-flop).
-	drawHandCards(m_activePlayers.size());
+	while (1) {
+		//	Give two cards to each player (pre-flop).
+		drawHandCards(m_activePlayers.size());
 
-	//	Show cards for player 1 (testing)
-	m_display.showCards(m_activePlayers[0]->getHand());
-	getchar();
+		//	Show cards for player 1 (testing)
+		m_display.showCards(m_activePlayers[0]->getHand());
+		getchar();
+		m_activePlayers[0]->clearOutHand();
+		initTheDeck();
+	}
 	//	Do your bets
 	//	for(auto i : player)
 	//		bet();
@@ -92,7 +97,9 @@ void Game::getCardFromTheDeck(size_t entity, size_t times) {
 	std::pair<int, int> card;
 	for(size_t i = 0; i < times; i++){
 
-		int deckCard = rand() % (cardsProSuit * suits) + 1;
+		//	TODO:	Check if the number was already taken from the deck
+		int deckCard = (rand() % (cardsProSuit * suits))+1;
+		std::cout << deckCard << std::endl;
 
 		//	Add the card to the player
 		if (entity != 0)

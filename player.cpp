@@ -60,3 +60,8 @@ void Player::addCardToHand(int deckCard) {
 
 	m_hand.insert(deckCard);
 }
+
+void Player::clearOutHand() {
+
+	m_hand.clear();
+};

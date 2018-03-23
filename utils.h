@@ -16,19 +16,19 @@ typedef std::set<int> hand;
 
 enum CardsNumbers {
 
-	As = 1,
-	Two = 2,
-	Three = 3,
-	Four = 4,
-	Five = 5,
-	Six = 6,
-	Seven = 7,
-	Eight = 8,
-	Nine = 9,
-	Ten = 10,
-	Jack = 11,
-	Queen = 12,
-	King = 13
+	As = 0,
+	Two = 1,
+	Three = 2,
+	Four = 3,
+	Five = 4,
+	Six = 5,
+	Seven = 6,
+	Eight = 7,
+	Nine = 8,
+	Ten = 9,
+	Jack = 10,
+	Queen = 11,
+	King = 12
 };
 
 //	1º row is diamonds
@@ -37,10 +37,10 @@ enum CardsNumbers {
 //	4º row is spades
 enum Suit {
 
-	Diamonds = 1,
-	Clubs = 2, 
-	Hearts = 3,
-	Spades = 4
+	Diamonds = 0,
+	Clubs = 1, 
+	Hearts = 2,
+	Spades = 3
 };
 
 std::string cardNumberToString(int cardNumber);
