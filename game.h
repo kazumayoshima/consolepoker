@@ -27,6 +27,8 @@ private:
 	bool checkIfEmpty(int number);
 
 	int m_deck[suits][cardsProSuit];
+	size_t m_totalBet;
+	tableHand m_cardsInTable;
 	ActivePlayers m_activePlayers;
 	Display m_display;
 };

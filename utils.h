@@ -17,14 +17,26 @@
 #include <string>
 #include <set>
 #include <vector>
+#include <windows.h>
+#include <unordered_set>
 
 #define cardsProSuit 13
 #define suits 4
 #define cardsInHand 2
 #define cardsInFlop 3
 #define cardsInRiver 2
+#define cardsInTable 5
 
 typedef std::set<int> hand;
+typedef std::unordered_set<int> tableHand;
+typedef struct console_info {
+	ULONG cbSize;
+	DWORD nFont;
+	COORD dwFontSize;
+	UINT  FontFamily;
+	UINT  FontWeight;
+	WCHAR FaceName[LF_FACESIZE];
+} console_info;
 
 enum CardsNumbers {
 

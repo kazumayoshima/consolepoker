@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "utils.h"
-#include <stdlib.h>
 #include "numberToCardConverter.h"
-#include <clocale>
+#include "player.h"
+#include <stdlib.h>
 
 class Display {
 
@@ -10,14 +10,15 @@ public:
 
 	static void clearScreen();
 	static void showGreetings();
-	void showTable();
+	void showTable(tableHand tableHand);
 	void showCards(hand hand);
+	void showStatus(Player* player, int totalBet);
 	
 private:
 
 	void showTableFirstRows();
 	void showTableGreenRow();
-	void showTableCardSpace();
+	void showTableCardSpace(tableHand tableHand);
 	void showTableCardNumberRowL();
 	void showTableCardSuit();
 	void showTableCardNumberRowR();

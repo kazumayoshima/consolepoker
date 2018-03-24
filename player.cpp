@@ -5,7 +5,7 @@ Player::Player(std::string playerName, const size_t money) {
 	m_name = playerName;
 	m_money = money;
 	m_bet = 0;
-	m_totalBet = 0;
+	m_currentlyBet = 0;
 }
 
 const size_t Player::getMoney() {
@@ -31,29 +31,39 @@ void Player::bet(size_t bet) {
 
 void Player::loseBet() {
 
-	m_money -= m_totalBet;
+	m_money -= m_currentlyBet;
 }
 
 void Player::winBet(const size_t externalBet) {
 
-	m_money += externalBet + m_totalBet;
+	m_money += externalBet + m_currentlyBet;
 }
 
 void Player::endBet() {
 
-	m_totalBet += m_bet;
+	m_currentlyBet += m_bet;
 	m_bet = 0;
 }
 
 void Player::endRound() {
 
-	m_totalBet = 0;
+	m_currentlyBet = 0;
 	m_bet = 0;
 }
 
 hand Player::getHand() {
 
 	return m_hand;
+}
+
+size_t Player::getBet() {
+
+	return m_bet;
+}
+
+size_t Player::getCurrentlyBet() {
+
+	return m_currentlyBet;
 }
 
 void Player::addCardToHand(int deckCard) {

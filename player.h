@@ -17,11 +17,13 @@ public:
 	hand getHand();
 	void addCardToHand(int deckCard);
 	void clearOutHand();
+	size_t getBet();
+	size_t getCurrentlyBet();
 private:
 
 	size_t m_money;
 	size_t m_bet;
-	size_t m_totalBet;
+	size_t m_currentlyBet;
 	std::string m_name;
 	hand m_hand;
 };

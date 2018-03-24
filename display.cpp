@@ -29,8 +29,16 @@ enum colors {
 	LIGHTPURPLE, LIGHTCYAN, WHITE, DEFAULT
 };
 
-void setconsolecolor(int textColor, int bgColor) {
+void setConsoleColor(int textColor, int bgColor) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (textColor + (bgColor * 16)));
+}
+
+void setConsoleSize(int xSize, int ySize) {
+	HANDLE outcon = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_FONT_INFOEX font;
+	font.dwFontSize.X = xSize;
+	font.dwFontSize.Y = ySize;
+	SetCurrentConsoleFontEx(outcon, false, &font);
 }
 
 void consolecolor(colors textColor = DEFAULT, colors backgroundColor = DEFAULT) {
@@ -79,47 +87,43 @@ void consolecolor(colors textColor = DEFAULT, colors backgroundColor = DEFAULT) 
 void Display::showTableFirstRows() {
 
 	//	First rows
-	std::cout << "  __________________________________________________________________  " << std::endl;
-	std::cout << " |  \\_____________________________________________________________/ | " << std::endl;
+	std::cout << "  _______________________________________________________________  " << std::endl;
+	std::cout << " |  \\__________________________________________________________/ | " << std::endl;
 }
 
 void Display::showTableGreenRow() {
 
 	//	Green rows
 	std::cout << " |  |";
-	setconsolecolor(BLACK, GREEN);
-	std::cout << "                                                             ";
-	setconsolecolor(WHITE, BLACK);
+	setConsoleColor(BLACK, GREEN);
+	std::cout << "                                                          ";
+	setConsoleColor(WHITE, BLACK);
 	std::cout << "| | " << std::endl;
 }
 
-void Display::showTableCardSpace() {
+void Display::showTableCardSpace(tableHand tableHand) {
 
 	//	Rows with cards
 	std::cout << " |  |";
-	setconsolecolor(WHITE, GREEN);
+	setConsoleColor(WHITE, GREEN);
 	std::cout << "   ";
-	setconsolecolor(WHITE, LIGHTBLUE);
-	std::cout << "       ";
-	setconsolecolor(WHITE, GREEN);
-	std::cout << "     ";
-	setconsolecolor(WHITE, LIGHTBLUE);
-	std::cout << "       ";
-	setconsolecolor(WHITE, GREEN);
-	std::cout << "     ";
-	setconsolecolor(WHITE, LIGHTBLUE);
-	std::cout << "       ";
-	setconsolecolor(WHITE, GREEN);
-	std::cout << "     ";
-	setconsolecolor(WHITE, LIGHTBLUE);
-	std::cout << "       ";
-	setconsolecolor(WHITE, GREEN);
-	std::cout << "    ";
-	setconsolecolor(WHITE, LIGHTBLUE);
-	std::cout << "       ";
-	setconsolecolor(WHITE, GREEN);
-	std::cout << "    ";
-	setconsolecolor(WHITE, BLACK);
+
+	for (auto &hand : tableHand) {
+
+		setConsoleColor(WHITE, WHITE);
+		std::cout << "       ";
+		setConsoleColor(WHITE, GREEN);
+		std::cout << "    ";
+	}
+
+	for(size_t a=0; a< cardsInTable - tableHand.size(); a++){
+
+		setConsoleColor(LIGHTBLUE, LIGHTBLUE);
+		std::cout << "       ";
+		setConsoleColor(WHITE, GREEN);
+		std::cout << "    ";
+	}
+	setConsoleColor(WHITE, BLACK);
 	std::cout << "| | " << std::endl;
 }
 
@@ -146,25 +150,41 @@ void Display::showTableCardBlankRow() {
 void Display::showTableLastRows() {
 
 	//	Last rows
-	setconsolecolor(WHITE, BLACK);
-	std::cout << " |__/_____________________________________________________________\\_| " << std::endl;
+	setConsoleColor(WHITE, BLACK);
+	std::cout << " |__/__________________________________________________________\\_| " << std::endl;
 }
 
 //	This function draws the table in the display
 //	TODO: It has to receive the cards of the players and the cards in the table
-void Display::showTable() {
+void Display::showTable(tableHand tableHand) {
 
 	clearScreen();
+
+	/* First table rows */
 	showTableFirstRows();
+
+	/* Green table rows */
 	showTableGreenRow();
 	showTableGreenRow();
-	showTableCardSpace();
-	showTableCardSpace();
-	showTableCardSpace();
-	showTableCardSpace();
-	showTableCardSpace();
+
+	//	Check the cards in the table
+	std::vector<std::pair<int, int>> cardsIdx;
+	for(auto &card : tableHand)
+		cardsIdx.push_back(numberToCard(card));
+
+	/* Cards row*/
+	showTableCardSpace(tableHand);
+	showTableCardSpace(tableHand);
+	showTableCardSpace(tableHand);
+	showTableCardSpace(tableHand);
+	showTableCardSpace(tableHand);
+	//showTableCardSpace();
+
+	/* Green table rows */
 	showTableGreenRow();
 	showTableGreenRow();
+
+	/* Last table rows */
 	showTableLastRows();
 
 	//	TODO: This must be removed in the future and set a timer 
@@ -173,71 +193,73 @@ void Display::showTable() {
 
 void Display::showCardTop(std::pair<int,int> pair) {
 
-	setconsolecolor(WHITE, BLACK);
+	setConsoleColor(WHITE, BLACK);
 	std::cout << " ";
 	if (pair.first == Suit::Diamonds || pair.first == Suit::Hearts)
-		setconsolecolor(RED, WHITE);
+		setConsoleColor(RED, WHITE);
 	else
-		setconsolecolor(BLACK, WHITE);
+		setConsoleColor(BLACK, WHITE);
 	std::cout << " " << cardNumberToString(pair.second) << "      ";
 	if (pair.second != 9)
 		std::cout << " ";
-	setconsolecolor(WHITE, BLACK);
+	setConsoleColor(WHITE, BLACK);
 	std::cout << "  ";
 }
 
 void Display::showCardBlank() {
 
-	setconsolecolor(WHITE, BLACK);
+	setConsoleColor(WHITE, BLACK);
 	std::cout << " ";
-	setconsolecolor(WHITE, WHITE);
+	setConsoleColor(WHITE, WHITE);
 	std::cout << "         ";
-	setconsolecolor(WHITE, BLACK);
+	setConsoleColor(WHITE, BLACK);
 	std::cout << "  ";
 }
 
 void Display::showCardSuit(int suit) {
 
+	
 	std::cout << " ";
 	switch (suit) {
 
 	case Suit::Clubs:
-		setconsolecolor(BLACK, WHITE);
+		setConsoleColor(BLACK, WHITE);
 		std::cout << "    " << CLUB << "    ";
 		break;
 	case Suit::Diamonds:
-		setconsolecolor(RED, WHITE);
+		setConsoleColor(RED, WHITE);
 		std::cout << "    " << DIAMOND << "    ";
 		break;
 	case Suit::Hearts:
-		setconsolecolor(RED, WHITE);
+		setConsoleColor(RED, WHITE);
 		std::cout << "    " << HEART << "    ";
 		break;
 	case Suit::Spades:
-		setconsolecolor(BLACK, WHITE);
+		setConsoleColor(BLACK, WHITE);
 		std::cout << "    " << SPADE << "    ";
 		break;
 	default:
 		break;
 	}
-	setconsolecolor(WHITE, BLACK);
+	setConsoleColor(WHITE, BLACK);
 	std::cout << "  ";
+	setConsoleSize(10, 10);
 }
 
 void Display::showCardBottom(std::pair<int, int> pair) {
 
 	if (cardNumberToString(pair.second) == "Invalid card number")
 		std::cout << pair.second;
-	setconsolecolor(WHITE, BLACK);
+	setConsoleColor(WHITE, BLACK);
 	std::cout << " ";
 	if(pair.first == Suit::Diamonds || pair.first == Suit::Hearts)
-		setconsolecolor(RED, WHITE);
+		setConsoleColor(RED, WHITE);
 	else
-		setconsolecolor(BLACK, WHITE);
+		setConsoleColor(BLACK, WHITE);
 	if (pair.second != 9)
 		std::cout << " ";
 	std::cout << "      " << cardNumberToString(pair.second) << " ";
-	setconsolecolor(WHITE, BLACK);
+	setConsoleColor(WHITE, BLACK);
 	std::cout << "  ";
 }
 
@@ -246,6 +268,8 @@ void Display::showCards(hand hand) {
 	std::string top;
 	std::string middle;
 	std::string bottom;
+
+	std::cout << "Your cards in hand: \n" << std::endl;
 
 	std::vector<std::pair<int, int>> cardsIdx;
 	if(hand.size() == 2){
@@ -257,8 +281,14 @@ void Display::showCards(hand hand) {
 		showCardBlank();
 		showCardBlank();
 		std::cout << std::endl;
+		showCardBlank();
+		showCardBlank();
+		std::cout << std::endl;
 		showCardSuit(cardsIdx[0].first);
 		showCardSuit(cardsIdx[1].first);
+		std::cout << std::endl;
+		showCardBlank();
+		showCardBlank();
 		std::cout << std::endl;
 		showCardBlank();
 		showCardBlank();
@@ -266,6 +296,16 @@ void Display::showCards(hand hand) {
 		showCardBottom(cardsIdx[0]);
 		showCardBottom(cardsIdx[1]);
 	}
+}
+
+void Display::showStatus(Player* player, int totalBet){
+
+	std::cout << "\n" << std::endl;
+	std::cout << "Your money: " << player->getMoney() << std::endl;
+	std::cout << "Your bet: " << player->getBet() << std::endl;
+	std::cout << "Currently bet: " << player->getCurrentlyBet() << std::endl;
+	std::cout << "Total bet: " << totalBet << std::endl;
+
 }
 
 
