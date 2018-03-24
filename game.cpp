@@ -42,7 +42,7 @@ void Game::initGame() {
 
 	//	Show your current status
 	m_display.showStatus(m_activePlayers[0], m_totalBet);
-	getchar();
+
 
 	//	Do your bets
 	//	for(auto i : player)
@@ -50,23 +50,43 @@ void Game::initGame() {
 
 	//	Draw the flop in the table (three cards).
 	//	The cards in the table are marked with the number 0.
-	getCardFromTheDeck(0, 3);
+	getCardFromTheDeck(0, cardsInFlop);
 	m_display.showTable(m_cardsInTable);
-	getchar();
+
+	//	Show cards for player 1 (testing)
+	m_display.showCards(m_activePlayers[0]->getHand());
+
+	//	Show your current status
+	m_display.showStatus(m_activePlayers[0], m_totalBet);
 
 	//	Do your bets
 	//	for(auto i : player)
 	//		bet();
 
 	//	Draw the turn in the table (one card).
-	getCardFromTheDeck(0, 1);
+	getCardFromTheDeck(0, cardsInTurn);
+	m_display.showTable(m_cardsInTable);
+
+	//	Show cards for player 1 (testing)
+	m_display.showCards(m_activePlayers[0]->getHand());
+
+	//	Show your current status
+	m_display.showStatus(m_activePlayers[0], m_totalBet);
+	
 
 	//	Do your bets
 	//	for(auto i : player)
 	//		bet();
 
 	//	Draw the river in the table (one card).
-	getCardFromTheDeck(0, 1);
+	getCardFromTheDeck(0, cardsInRiver);
+	m_display.showTable(m_cardsInTable);
+
+	//	Show cards for player 1 (testing)
+	m_display.showCards(m_activePlayers[0]->getHand());
+
+	//	Show your current status
+	m_display.showStatus(m_activePlayers[0], m_totalBet);
 
 	//	Check the final hand of each player
 	for (size_t i = 0; i < m_activePlayers.size(); i++)

@@ -24,7 +24,8 @@
 #define suits 4
 #define cardsInHand 2
 #define cardsInFlop 3
-#define cardsInRiver 2
+#define cardsInRiver 1
+#define cardsInTurn 1
 #define cardsInTable 5
 
 typedef std::set<int> hand;

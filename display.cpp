@@ -178,7 +178,6 @@ void Display::showTable(tableHand tableHand) {
 	showTableCardSpace(tableHand);
 	showTableCardSpace(tableHand);
 	showTableCardSpace(tableHand);
-	//showTableCardSpace();
 
 	/* Green table rows */
 	showTableGreenRow();
@@ -186,9 +185,6 @@ void Display::showTable(tableHand tableHand) {
 
 	/* Last table rows */
 	showTableLastRows();
-
-	//	TODO: This must be removed in the future and set a timer 
-	getchar();
 }
 
 void Display::showCardTop(std::pair<int,int> pair) {
@@ -305,7 +301,7 @@ void Display::showStatus(Player* player, int totalBet){
 	std::cout << "Your bet: " << player->getBet() << std::endl;
 	std::cout << "Currently bet: " << player->getCurrentlyBet() << std::endl;
 	std::cout << "Total bet: " << totalBet << std::endl;
-
+	getchar();
 }
 
 
