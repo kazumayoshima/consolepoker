@@ -8,10 +8,11 @@ Game::Game() {
 
 void Game::addPlayers(size_t players){
 
+	getchar();
 	for (size_t i = 0; i < players; i++) {
 
 		//	TODO: Implement a class to display output nicely
-		std::cout << "Do you want to set a name for the player [Max 10 characters]? (Leave in blank for anonymous): \n";
+		std::cout << " Do you want to set a name for the player [Max 10 characters]? (Leave in blank for anonymous): \n";
 		std::string playerName = "";
 		getline(std::cin, playerName);
 
@@ -131,7 +132,7 @@ void Game::getCardFromTheDeck(size_t entity, size_t times) {
 		if (entity != 0)
 			m_activePlayers[entity - 1]->addCardToHand(deckCard);
 		else
-			m_cardsInTable.insert(deckCard);
+			m_cardsInTable.push_back(deckCard);
 
 		//	Set the card as taken in the deck
 		card = numberToCard(deckCard);

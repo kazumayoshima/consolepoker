@@ -18,11 +18,10 @@ private:
 
 	void showTableFirstRows();
 	void showTableGreenRow();
+	void showTableCardTop(tableHand tableHand);
+	void showTableCardBottom(tableHand tableHand);
 	void showTableCardSpace(tableHand tableHand);
-	void showTableCardNumberRowL();
-	void showTableCardSuit();
-	void showTableCardNumberRowR();
-	void showTableCardBlankRow();
+	void showTableCardSuit(tableHand tableHand);
 	void showTableLastRows();
 
 	void showCardTop(std::pair<int, int> pair);

@@ -18,7 +18,6 @@
 #include <set>
 #include <vector>
 #include <windows.h>
-#include <unordered_set>
 
 #define cardsProSuit 13
 #define suits 4
@@ -29,7 +28,7 @@
 #define cardsInTable 5
 
 typedef std::set<int> hand;
-typedef std::unordered_set<int> tableHand;
+typedef std::vector<int> tableHand;
 typedef struct console_info {
 	ULONG cbSize;
 	DWORD nFont;

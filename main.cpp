@@ -11,7 +11,6 @@ int main()
 {
 	SetConsoleOutputCP(850);
 	Display::showGreetings();
-	getchar();
 	Game game;
 	game.addPlayers(1);
 	game.initGame();
