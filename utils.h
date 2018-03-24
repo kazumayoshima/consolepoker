@@ -1,4 +1,16 @@
-#pragma once
+ï»¿#pragma once
+
+#if defined(_WIN32) || defined(__MSDOS__)
+#define SPADE   "\x06"
+#define CLUB    "\x05"
+#define HEART   "\x03"
+#define DIAMOND "\x04"
+#else
+#define SPADE   "\xE2\x99\xA0"
+#define CLUB    "\xE2\x99\xA3"
+#define HEART   "\xE2\x99\xA5"
+#define DIAMOND "\xE2\x99\xA6"
+#endif
 
 #include <stdio.h>
 #include <iostream>
@@ -31,10 +43,10 @@ enum CardsNumbers {
 	King = 12
 };
 
-//	1º row is diamonds
-//	2º row is clubs
-//	3º row is hearts
-//	4º row is spades
+//	1 row is diamonds
+//	2 row is clubs
+//	3 row is hearts
+//	4 row is spades
 enum Suit {
 
 	Diamonds = 0,

@@ -1,4 +1,4 @@
-#include "display.h"
+﻿#include "display.h"
 #include <windows.h>
 
 void Display::clearScreen() {
@@ -175,8 +175,11 @@ void Display::showCardTop(std::pair<int,int> pair) {
 
 	setconsolecolor(WHITE, BLACK);
 	std::cout << " ";
-	setconsolecolor(RED, WHITE);
-	std::cout << " " << cardNumberToString(pair.second) << "     ";
+	if (pair.first == Suit::Diamonds || pair.first == Suit::Hearts)
+		setconsolecolor(RED, WHITE);
+	else
+		setconsolecolor(BLACK, WHITE);
+	std::cout << " " << cardNumberToString(pair.second) << "      ";
 	if (pair.second != 9)
 		std::cout << " ";
 	setconsolecolor(WHITE, BLACK);
@@ -188,14 +191,37 @@ void Display::showCardBlank() {
 	setconsolecolor(WHITE, BLACK);
 	std::cout << " ";
 	setconsolecolor(WHITE, WHITE);
-	std::cout << "        ";
+	std::cout << "         ";
 	setconsolecolor(WHITE, BLACK);
 	std::cout << "  ";
 }
 
-void Display::showCardSuit(std::pair<int, int> pair) {
+void Display::showCardSuit(int suit) {
 
+	std::cout << " ";
+	switch (suit) {
 
+	case Suit::Clubs:
+		setconsolecolor(BLACK, WHITE);
+		std::cout << "    " << CLUB << "    ";
+		break;
+	case Suit::Diamonds:
+		setconsolecolor(RED, WHITE);
+		std::cout << "    " << DIAMOND << "    ";
+		break;
+	case Suit::Hearts:
+		setconsolecolor(RED, WHITE);
+		std::cout << "    " << HEART << "    ";
+		break;
+	case Suit::Spades:
+		setconsolecolor(BLACK, WHITE);
+		std::cout << "    " << SPADE << "    ";
+		break;
+	default:
+		break;
+	}
+	setconsolecolor(WHITE, BLACK);
+	std::cout << "  ";
 }
 
 void Display::showCardBottom(std::pair<int, int> pair) {
@@ -204,10 +230,13 @@ void Display::showCardBottom(std::pair<int, int> pair) {
 		std::cout << pair.second;
 	setconsolecolor(WHITE, BLACK);
 	std::cout << " ";
-	setconsolecolor(RED, WHITE);
-	std::cout << "      " << cardNumberToString(pair.second);
-	if(pair.second != 9)
+	if(pair.first == Suit::Diamonds || pair.first == Suit::Hearts)
+		setconsolecolor(RED, WHITE);
+	else
+		setconsolecolor(BLACK, WHITE);
+	if (pair.second != 9)
 		std::cout << " ";
+	std::cout << "      " << cardNumberToString(pair.second) << " ";
 	setconsolecolor(WHITE, BLACK);
 	std::cout << "  ";
 }
@@ -228,8 +257,8 @@ void Display::showCards(hand hand) {
 		showCardBlank();
 		showCardBlank();
 		std::cout << std::endl;
-		showCardBlank();
-		showCardBlank();
+		showCardSuit(cardsIdx[0].first);
+		showCardSuit(cardsIdx[1].first);
 		std::cout << std::endl;
 		showCardBlank();
 		showCardBlank();

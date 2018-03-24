@@ -1,4 +1,4 @@
-#include "utils.h"
+﻿#include "utils.h"
 #include "game.h"
 #include "hand.h"
 #include "numberToCardConverter.h"

@@ -1,4 +1,4 @@
-#include "poker.h"
+﻿#include "poker.h"
 
 Rank Poker::processHand(hand hand) {
 

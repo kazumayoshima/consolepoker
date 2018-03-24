@@ -1,4 +1,4 @@
-#include "game.h"
+﻿#include "game.h"
 
 Game::Game() {
 
@@ -42,6 +42,7 @@ void Game::initGame() {
 		getchar();
 		m_activePlayers[0]->clearOutHand();
 		initTheDeck();
+		std::cout << std::endl;
 	}
 	//	Do your bets
 	//	for(auto i : player)
@@ -95,11 +96,14 @@ void Game::drawHandCards(size_t numberOfPlayers) {
 void Game::getCardFromTheDeck(size_t entity, size_t times) {
 
 	std::pair<int, int> card;
+	int deckCard;
+
 	for(size_t i = 0; i < times; i++){
 
 		//	TODO:	Check if the number was already taken from the deck
-		int deckCard = (rand() % (cardsProSuit * suits))+1;
-		std::cout << deckCard << std::endl;
+		do {
+			deckCard = (rand() % (cardsProSuit * suits)) + 1;
+		} while (checkIfEmpty(deckCard));
 
 		//	Add the card to the player
 		if (entity != 0)
@@ -111,6 +115,15 @@ void Game::getCardFromTheDeck(size_t entity, size_t times) {
 	}
 }
 
+//	Check if a card it's already on the deck or in a player's hand
+bool Game::checkIfEmpty(int number) {
+
+	auto card = numberToCard(number);
+	return m_deck[card.first][card.second] != -1;
+}
+
+//	Get the final hand of a player, the final hand is a combination of five cards
+//	mixing the cards of the hand and the cards of the deck.
 hand Game::getFinalHand(int player) {
 
 	hand hand;

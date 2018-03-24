@@ -1,4 +1,4 @@
-enum class Rank{
+﻿enum class Rank{
 
 	RoyalFlush,
 	StraightFlush,

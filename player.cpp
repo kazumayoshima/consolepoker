@@ -1,4 +1,4 @@
-#include "player.h"
+﻿#include "player.h"
 
 Player::Player(std::string playerName, const size_t money) {
 
