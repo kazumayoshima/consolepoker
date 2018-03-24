@@ -1,4 +1,4 @@
-﻿// poker.cpp: define el punto de entrada de la aplicación de consola.
+﻿// poker.cpp: define el punto de entrada de la aplicacion de consola.
 //
 
 #include "utils.h"
@@ -9,7 +9,7 @@
 
 int main()
 {
-	SetConsoleOutputCP(65001);
+	SetConsoleOutputCP(850);
 	Display::showGreetings();
 	getchar();
 	Game game;
