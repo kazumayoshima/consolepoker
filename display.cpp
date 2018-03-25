@@ -336,6 +336,7 @@ void Display::showCardSuit(int suit) {
 
 	
 	std::cout << " ";
+	setConsoleSize(15, 15);
 	switch (suit) {
 
 	case Suit::Clubs:
@@ -359,7 +360,7 @@ void Display::showCardSuit(int suit) {
 	}
 	setConsoleColor(WHITE, BLACK);
 	std::cout << "  ";
-	setConsoleSize(10, 10);
+	
 }
 
 void Display::showCardBottom(std::pair<int, int> pair) {

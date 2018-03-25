@@ -4,27 +4,25 @@
 #include "numberToCardConverter.h"
 #include <vector>
 #include <map>
+#include <set>
 
 class Poker: public Game {
 
 public:
 
 	Poker() {};
-	Rank processHand(hand);
-	typedef std::vector<std::pair<int, int>> combinations;
+	Rank processHand(int **hand, int idPlayer);
 
 private:
-
-	combinations getSuitNumberCombination(hand hand);
 	
-	Rank checkRoyalFlush(hand);
-	Rank checkStraightFlush(hand);
-	Rank checkFourOfAKind(hand);
-	Rank checkFullHouse(hand);
-	Rank checkFlush(hand);
-	Rank checkStraight(hand);
-	Rank checkThreeOfAKind(hand);
-	Rank checkTwoPairs(hand);
-	Rank checkOnePair(hand);
-	Rank checkNoPair(hand);
+	bool checkRoyalFlush(int **hand, int idPlayer);
+	bool checkStraightFlush(int **hand, int idPlayer);
+	bool checkFourOfAKind(int **hand, int idPlayer);
+	bool checkFullHouse(int **hand, int idPlayer);
+	bool checkFlush(int **hand, int idPlayer);
+	bool checkStraight(int **hand, int idPlayer);
+	bool checkThreeOfAKind(int **hand, int idPlayer);
+	bool checkTwoPairs(int **hand, int idPlayer);
+	bool checkOnePair(int **hand, int idPlayer);
+	bool checkNoPair(int **hand, int idPlayer);
 };

@@ -1,100 +1,97 @@
 ﻿#include "poker.h"
 
-Rank Poker::processHand(hand hand) {
+Rank Poker::processHand(int **hand, int idPlayer) {
 
-	if (checkRoyalFlush(hand) != Rank::Invalid)
+	if (checkRoyalFlush(hand, idPlayer))
 		return Rank::RoyalFlush;
-	else if (checkStraightFlush(hand) != Rank::Invalid)
+	else if (checkStraightFlush(hand, idPlayer))
 		return Rank::StraightFlush;
-	else if (checkFourOfAKind(hand) != Rank::Invalid)
+	else if (checkFourOfAKind(hand, idPlayer))
 		return Rank::FourOfAKind;
-	else if (checkFullHouse(hand) != Rank::Invalid)
+	else if (checkFullHouse(hand, idPlayer))
 		return Rank::FullHouse;
-	else if (checkFlush(hand) != Rank::Invalid)
+	else if (checkFlush(hand, idPlayer))
 		return Rank::Flush;
-	else if (checkStraight(hand) != Rank::Invalid)
+	else if (checkStraight(hand, idPlayer))
 		return Rank::Straight;
-	else if (checkThreeOfAKind(hand) != Rank::Invalid)
+	else if (checkThreeOfAKind(hand, idPlayer))
 		return Rank::ThreeOfAKind;
-	else if (checkTwoPairs(hand) != Rank::Invalid)
+	else if (checkTwoPairs(hand, idPlayer))
 		return Rank::TwoPairs;
-	else if (checkOnePair(hand) != Rank::Invalid)
+	else if (checkOnePair(hand, idPlayer))
 		return Rank::OnePair;
-	else if (checkNoPair(hand) != Rank::Invalid)
+	else if (checkNoPair(hand, idPlayer))
 		return Rank::NoPair;
 	else
 		return Rank::Invalid;
 }
 
-//	Transform the index cards into combinations of suits and numbers
-Poker::combinations Poker::getSuitNumberCombination(hand hand) {
+bool Poker::checkRoyalFlush(int **hand, int idPlayer) {
 
-	combinations combo;
-	for (auto &card : hand)
-		combo.push_back(numberToCard(card));
-	return combo;
+	for (size_t i = 0; i < suits; i++) {
+		std::set<int> count;
+		for (size_t j = 0; j < cardsProSuit; j++) {
+			if (hand[i][j] == 1) {
+				count.insert(j);
+			}
+		}
+		size_t auxCount = 0;
+		size_t auxSeries = 0;
+		for (auto &c : count) {
+
+			if (auxSeries == 0)
+				auxSeries = c;
+			else {
+
+				if (c - auxSeries == idPlayer) {
+					auxCount++;
+					auxSeries = c;
+				}
+				else {
+					auxCount = 0;
+					auxSeries = 0;
+				}
+			}
+			if (auxCount == 5)
+				return true;
+		}
+	}
+	return false;
 }
 
-Rank Poker::checkRoyalFlush(hand hand) {
+bool Poker::checkStraightFlush(int **hand, int idPlayer) {
 
-	combinations combo = getSuitNumberCombination(hand);
-	
-	//	Save the result of each suit
-	std::map<int, int> result;
-	for (auto a : combo)
-		if ((a.second <= 13 && a.second >= 10) || a.second == 1)
-			result[a.first]++;
-
-	//	If the result was 5, return success
-	for(auto &r: result)
-		if(r.second == 5)
-			return Rank::RoyalFlush;
-	
-	return Rank::Invalid;
+	return true;
 }
+bool Poker::checkFourOfAKind(int **hand, int idPlayer) {
 
-Rank Poker::checkStraightFlush(hand hand) {
-
-	combinations combo = getSuitNumberCombination(hand);
-	return Rank::StraightFlush;
+	return true;
 }
-Rank Poker::checkFourOfAKind(hand hand) {
+bool Poker::checkFullHouse(int **hand, int idPlayer) {
 
-	combinations combo = getSuitNumberCombination(hand);
-	return Rank::FourOfAKind;
+	return true;
 }
-Rank Poker::checkFullHouse(hand hand) {
+bool Poker::checkFlush(int **hand, int idPlayer) {
 
-	combinations combo = getSuitNumberCombination(hand);
-	return Rank::FullHouse;
+	return true;
 }
-Rank Poker::checkFlush(hand hand) {
+bool Poker::checkStraight(int **hand, int idPlayer) {
 
-	combinations combo = getSuitNumberCombination(hand);
-	return Rank::Flush;
+	return true;
 }
-Rank Poker::checkStraight(hand hand) {
+bool Poker::checkThreeOfAKind(int **hand, int idPlayer) {
 
-	combinations combo = getSuitNumberCombination(hand);
-	return Rank::Straight;
+	return true;
 }
-Rank Poker::checkThreeOfAKind(hand hand) {
+bool Poker::checkTwoPairs(int **hand, int idPlayer) {
 
-	combinations combo = getSuitNumberCombination(hand);
-	return Rank::ThreeOfAKind;
+	return true;
 }
-Rank Poker::checkTwoPairs(hand hand) {
+bool Poker::checkOnePair(int **hand, int idPlayer) {
 
-	combinations combo = getSuitNumberCombination(hand);
-	return Rank::TwoPairs;
+	return true;
 }
-Rank Poker::checkOnePair(hand hand) {
+bool Poker::checkNoPair(int **hand, int idPlayer) {
 
-	combinations combo = getSuitNumberCombination(hand);
-	return Rank::OnePair;
-}
-Rank Poker::checkNoPair(hand hand) {
-
-	combinations combo = getSuitNumberCombination(hand);
-	return Rank::NoPair;
+	return true;
 }
