@@ -62,8 +62,8 @@ enum CardsNumbers {
 enum Suit {
 
 	Diamonds = 0,
-	Clubs = 1, 
-	Hearts = 2,
+	Hearts = 1, 
+	Clubs = 2,
 	Spades = 3
 };
 

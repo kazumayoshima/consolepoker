@@ -28,40 +28,102 @@ Rank Poker::processHand(int **hand, int idPlayer) {
 
 bool Poker::checkRoyalFlush(int **hand, int idPlayer) {
 
-	for (size_t i = 0; i < suits; i++) {
-		std::set<int> count;
-		for (size_t j = 0; j < cardsProSuit; j++) {
-			if (hand[i][j] == 1) {
-				count.insert(j);
-			}
-		}
-		size_t auxCount = 0;
-		size_t auxSeries = 0;
-		for (auto &c : count) {
+	int spadeCount, clubCount, diamondCount, heartsCount = 0;
+	for (size_t i = 0; i < cardsProSuit; i++) {
 
-			if (auxSeries == 0)
-				auxSeries = c;
-			else {
-
-				if (c - auxSeries == idPlayer) {
-					auxCount++;
-					auxSeries = c;
-				}
-				else {
-					auxCount = 0;
-					auxSeries = 0;
-				}
-			}
-			if (auxCount == 5)
-				return true;
+		if (hand[Suit::Hearts][i] == idPlayer ) {
+			heartsCount++;
+			spadeCount = 0;
+			clubCount = 0;
+			diamondCount = 0;
 		}
+		else if (hand[Suit::Diamonds][i] == idPlayer) {
+			diamondCount++;
+			spadeCount = 0;
+			clubCount = 0;
+			heartsCount = 0;
+		}
+		else if(hand[Suit::Clubs][i] == idPlayer){
+			clubCount++;
+			spadeCount = 0;
+			diamondCount = 0;
+			heartsCount = 0;
+		}
+		else if (hand[Suit::Spades][i] == idPlayer) {
+			spadeCount++;
+			clubCount = 0;
+			diamondCount = 0;
+			heartsCount = 0;
+		}
+		else {
+			clubCount = 0;
+			spadeCount = 0;
+			diamondCount = 0;
+			heartsCount = 0;
+		}
+		if (clubCount == cardsInTable || spadeCount == cardsInTable || diamondCount == cardsInTable || heartsCount == cardsInTable)
+			return true;
 	}
+
+	//	Take into account the possibility of a straight ended in A
+	if (heartsCount == (cardsInTable - 1)) {
+
+		if (hand[Suit::Hearts][0] == idPlayer)
+			return true;
+	}
+	else if (spadeCount == (cardsInTable - 1)) {
+
+		if (hand[Suit::Spades][0] == idPlayer)
+			return true;
+	}
+	else if (diamondCount == (cardsInTable - 1)) {
+
+		if (hand[Suit::Diamonds][0] == idPlayer)
+			return true;
+	}
+	else if (clubCount == (cardsInTable - 1)) {
+
+		if (hand[Suit::Clubs][0] == idPlayer)
+			return true;
+	}
+
 	return false;
 }
 
 bool Poker::checkStraightFlush(int **hand, int idPlayer) {
 
-	return true;
+	int redCount, blackCount=0;
+	for (size_t i = 0; i < cardsProSuit; i++) {
+
+		if (hand[Suit::Hearts][i] == idPlayer || hand[Suit::Diamonds][i] == idPlayer) {
+			redCount++;
+			blackCount = 0;
+		}
+		else if(hand[Suit::Clubs][i] == idPlayer || hand[Suit::Spades][i] == idPlayer){
+			blackCount++;
+			redCount = 0;
+		}
+		else {
+			redCount = 0;
+			blackCount = 0;
+		}
+		if (redCount == cardsInTable || blackCount == cardsInTable)
+			return true;
+	}
+
+	//	Take into account the possibility of a straight ended in A
+	if (redCount == (cardsInTable - 1)) {
+
+		if (hand[Suit::Hearts][0] == idPlayer || hand[Suit::Diamonds][0] == idPlayer)
+			return true;
+	}
+	else if (blackCount == (cardsInTable - 1)) {
+
+		if (hand[Suit::Clubs][0] == idPlayer || hand[Suit::Spades][0] == idPlayer)
+			return true;
+	}
+
+	return false;
 }
 bool Poker::checkFourOfAKind(int **hand, int idPlayer) {
 
