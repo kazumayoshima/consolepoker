@@ -48,7 +48,7 @@ void consolecolor(colors textColor = DEFAULT, colors backgroundColor = DEFAULT) 
 		std::cout << "\x1B[39m";
 
 	// Set bright foreground color
-	else if (textColor > GREY) {
+	else if (textColor > GREY) { 
 		// Set bright mode
 		std::cout << "\x1B[1m";
 		// Set color

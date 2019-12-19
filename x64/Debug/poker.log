@@ -1,0 +1,11 @@
+﻿  game.cpp
+C:\Users\capuc\source\repos\consolepoker\game.cpp(44,53): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\capuc\source\repos\consolepoker\game.cpp(60,53): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\capuc\source\repos\consolepoker\game.cpp(74,53): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\capuc\source\repos\consolepoker\game.cpp(89,53): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\capuc\source\repos\consolepoker\game.cpp(104,24): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\capuc\source\repos\consolepoker\game.cpp(105,40): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\capuc\source\repos\consolepoker\game.cpp(97,7): warning C4101: 'suit': variable local sin referencia
+C:\Users\capuc\source\repos\consolepoker\game.cpp(170,43): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\capuc\source\repos\consolepoker\game.cpp(127): warning C4715: 'Game::returnHand': no todas las rutas de acceso de control devuelven un valor
+  poker.vcxproj -> C:\Users\capuc\source\repos\consolepoker\x64\Debug\poker.exe

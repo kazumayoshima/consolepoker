@@ -1,14 +1,13 @@
 ﻿#include "game.h"
 
 Game::Game() {
-
+	
 	m_totalBet = 0;
 	srand((unsigned int)time(NULL));
 }
 
 void Game::addPlayers(size_t players){
 
-	getchar();
 	for (size_t i = 0; i < players; i++) {
 
 		//	TODO: Implement a class to display output nicely
@@ -90,15 +89,47 @@ void Game::initGame() {
 	m_display.showStatus(m_activePlayers[0], m_totalBet);
 
 	//	Check the final hand of each player
-	for (size_t i = 0; i < m_activePlayers.size(); i++)
+	hand hand;
+	int rank = 0;
+	Poker poker;
+	
+	int **deck = new int*[suits];
+	int *suit;
 
-		hand hand = getFinalHand(i);
+	for (size_t i = 0; i < suits; i++)
+		deck[i] = m_deck[i];
+
+	for (size_t i = 1; i < m_activePlayers.size()+1; i++){
+
+		hand = getFinalHand(i);
+		rank = (int)poker.processHand(deck, i);
+		std::cout << returnHand(rank);
+		getchar();
+	}
+
+	delete [] deck;
+	deck = NULL;
 }
+
+std::string Game::returnHand(int a) {
+
+	if (a == 0) return "RoyalFlush";
+	if (a == 1) return "StraightFlush";
+	if (a == 2) return "FourOfAKind";
+	if (a == 3) return "FullHouse";
+	if (a == 4) return "Flush";
+	if (a == 5) return "Straight";
+	if (a == 6) return "ThreeOfAKind";
+	if (a == 7) return "TwoPairs";
+	if (a == 8) return "OnePair";
+	if (a == 9) return "NoPair";
+	if (a == 10) return "Invalid";
+};
 
 //	Init the cards of the deck to -1. That's mean the cards are in the deck and not in the table neither
 //	in the hand of a player.
 void Game::initTheDeck() {
-
+	
 	for(size_t i=0; i<suits;i++)
 	for (size_t j = 0; j < cardsProSuit; j++)
 		m_deck[i][j] = -1;

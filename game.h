@@ -3,6 +3,7 @@
 #include "numberToCardConverter.h"
 #include "player.h"
 #include "display.h"
+#include "poker.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -25,6 +26,7 @@ private:
 	void getCardFromTheDeck(size_t entity, size_t times = 1);
 	hand getFinalHand(int player);
 	bool checkIfEmpty(int number);
+	std::string returnHand(int a);
 
 	int m_deck[suits][cardsProSuit];
 	size_t m_totalBet;

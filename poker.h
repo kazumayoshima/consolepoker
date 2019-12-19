@@ -1,12 +1,11 @@
-﻿#include "utils.h"
-#include "game.h"
-#include "hand.h"
-#include "numberToCardConverter.h"
+﻿#pragma once
 #include <vector>
 #include <map>
 #include <set>
+#include "hand.h"
+#include "utils.h"
 
-class Poker: public Game {
+class Poker {
 
 public:
 
@@ -25,4 +24,6 @@ private:
 	bool checkTwoPairs(int **hand, int idPlayer);
 	bool checkOnePair(int **hand, int idPlayer);
 	bool checkNoPair(int **hand, int idPlayer);
+
+	bool checkHand(int number, int idPlayer);
 };
